@@ -3,7 +3,6 @@ package com.app.Exception;
  * @auther Mina.Georgy
  */
 public class SystemException extends Exception {
-
 	/**
 	 * serial 1L
 	 */
