@@ -8,7 +8,6 @@
 	<version>1.0-SNAPSHOT</version>
 	<name>CRUDApp</name>
 	<description>CRUDApp</description>
-
 	<properties>
 		<!-- Build -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
