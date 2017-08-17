@@ -8,5 +8,4 @@
 		<pattern value="/" />
 		<view-id value="home.jsf" />
 	</url-mapping>
-	
 </pretty-config>
