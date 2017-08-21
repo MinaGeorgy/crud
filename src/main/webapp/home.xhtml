@@ -8,7 +8,6 @@
 	<title></title>
 	<link href="./css/styles.css" rel="stylesheet" type="text/css" />
 </h:head>
-
 <h:body>
 	<h:form id="form">
 		<p:outputPanel id="users">
@@ -18,7 +17,8 @@
 					<f:facet name="header">
 						<h:outputText value="Name" />
 					</f:facet>
-					<p:commandLink action="#{customerBean.editCust}">
+					<p:commandLink>
+						<p:ajax event="click" listener="#{customerBean.editCust}" />
 						<h:outputText value="#{cust.name}" />
 						<f:setPropertyActionListener target="#{customerBean.cust}"
 							value="#{cust}" />
@@ -29,7 +29,8 @@
 					<f:facet name="header">
 						<h:outputText value="Age" />
 					</f:facet>
-					<p:commandLink action="#{customerBean.editCust}">
+					<p:commandLink>
+						<p:ajax event="click" listener="#{customerBean.editCust}" />
 						<h:outputText value="#{cust.age}" />
 						<f:setPropertyActionListener target="#{customerBean.cust}"
 							value="#{cust}" />
@@ -39,7 +40,8 @@
 					<f:facet name="delete">
 						<h:outputText value="Delete" />
 					</f:facet>
-					<p:commandLink action="#{customerBean.deleteCust}">
+					<p:commandLink>
+						<p:ajax event="click" listener="#{customerBean.deleteCust}" />
 						<h:outputText value="Delete" />
 						<f:setPropertyActionListener target="#{customerBean.cust}"
 							value="#{cust}" />
@@ -47,30 +49,33 @@
 				</p:column>
 			</p:dataTable>
 		</p:outputPanel>
-		<p:commandButton value="Create New User"
-			action="#{customerBean.newCust}" />
+		<p:commandButton value="Create New User">
+			<p:ajax event="click" listener="#{customerBean.newCust}" />
+		</p:commandButton>
 	</h:form>
-	<h:panelGroup rendered="#{customerBean.showCreatePanel}">
-	<h:form id="newform">
-		<p:growl id="msgs" />
-		<p:panel header="Create a new User">
-			<h:panelGrid columns="2" id="grid">
-				<h:outputLabel value="Name : *" for="txt_name" />
-				<p:inputText id="txt_name" value="#{customerBean.cust.name}"
-					required="true" />
+	<p:dialog rendered="#{customerBean.showCreatePanel}">
+		<h:form id="newform">
+			<p:growl id="msgs" />
+			<p:panel header="Create a new User">
+				<h:panelGrid columns="2" id="grid">
+					<h:outputLabel value="Name : *" for="txt_name" />
+					<p:inputText id="txt_name" value="#{customerBean.cust.name}"
+						required="true" />
 
-				<h:outputLabel value="age : *" for="txt_age" />
-				<p:inputText id="txt_age" required="true"
-					value="#{customerBean.cust.age}" />
+					<h:outputLabel value="age : *" for="txt_age" />
+					<p:inputText id="txt_age" required="true"
+						value="#{customerBean.cust.age}" />
 
-				<p:commandButton value="Reset" type="reset" />
-				<p:commandButton id="btn_add" value="Save"
-					action="#{customerBean.saveCust}" />
-					
-			</h:panelGrid>
-		</p:panel>
-	</h:form>
-	</h:panelGroup>
-	
+					<p:commandButton value="Reset" type="reset" />
+					<p:commandButton id="btn_add" value="Save"
+						>
+						<p:ajax event="click" listener="#{customerBean.saveCust}" />
+					</p:commandButton>
+
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+	</p:dialog>
+
 </h:body>
 </html>
