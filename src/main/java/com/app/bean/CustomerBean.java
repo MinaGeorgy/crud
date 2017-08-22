@@ -3,24 +3,23 @@ package com.app.bean;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.transaction.SystemException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import com.app.model.Customer;
 import com.app.service.CustomerService;
 
 /**
  *
- * @author: Mina 
- * CustomerBean is View Scope CRUD Bean
+ * @author: Mina CustomerBean is View Scope CRUD Bean
  */
-@Component
-@ViewScoped
+@ManagedBean
+@RequestScoped
 public class CustomerBean {
 
 	private static Logger logger = Logger.getLogger("CustomerBean.class");
@@ -33,10 +32,12 @@ public class CustomerBean {
 	private boolean showCreatePanel = false;
 
 	public CustomerBean() {
+		// retrieve All customer while initiate the bean
+		getAllCust();
 	}
 
 	/**
-	 * @return String <b> save customer </b>
+	 * @return String <b> save customer and edit customer </b>
 	 */
 	public String saveCust() {
 		try {
@@ -72,15 +73,8 @@ public class CustomerBean {
 	 * @return String <b> edit customer </b>
 	 */
 	public String editCust() {
-		try {
 
-			logger.log(Level.FINE, "Begin Editing Object ");
-		} catch (Exception e) {
-			logger.log(Level.SEVERE, "Exception While Editing Object with error  " + e.getMessage());
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
-
-		}
+		logger.log(Level.FINE, "Begin Editing Object ");
 		return "pretty:home";
 	}
 
@@ -107,8 +101,8 @@ public class CustomerBean {
 
 		List<Customer> custs = null;
 		try {
-			manager.getAllCust();
-		} catch (SystemException e) {
+			custs=manager.getAllCust();
+		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Exception While Editing Object with error  " + e.getMessage());
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
